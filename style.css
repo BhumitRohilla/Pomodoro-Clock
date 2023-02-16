@@ -1,0 +1,156 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+:root{
+    --time: 600;
+}
+
+body{
+    /* background: linear-gradient(#e49661,#e49661,); */
+
+    height: 100vh;
+    background: linear-gradient( 45deg,#e49661,#ebc88e) no-repeat;
+    display: flex;
+    font-family: 'Inter', sans-serif;
+}
+#main{
+    width: 220px;
+    height: 460px;
+    background-color: rgba(0,0,0,.64);
+    align-self: center;
+    margin: 0 auto;
+    border-radius: 5px;
+    box-shadow: 0px 5px 15px black;
+    display: flex;
+    flex-direction: column;
+}
+
+#display-main{
+    background-color: #eae9e5;
+    height: 160px;
+    width: 160px;
+    margin: 25px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.sessionMode{
+    color: #00a0b0;
+}
+
+.breakMode{
+    color: #eb6f4a;
+}
+
+hr{
+    width: 80%;
+    border: none;
+    border-top: 1px dashed gray;
+    margin: 0 auto;
+}
+
+#minCluster{
+    margin:10px 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+#title{
+    font-size: 20px;
+    color: #eae9e5;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+
+p{
+    font-size: 10px;
+    color: #eae9e5;
+    margin-top: 10px;
+    text-align: center;
+}
+
+#session-time{
+    font-size: 13px;
+    text-align: center;
+    font-weight: 300;
+    color: #12868f;
+    margin: 5px;
+}
+
+#break-time{
+    font-size: 13px;
+    text-align: center;
+    font-weight: 300;
+    color: #c85e3d;
+    margin: 5px;
+}
+
+.button{
+    width: 30px;
+    height: 20px;
+    outline: none;
+    border: none;
+}
+
+.btnCluster{
+    margin: 10px 0px;
+}
+.button{
+    background-color: black;
+    color: #eae9e5;
+    border-radius: 5px;
+    
+}
+
+#pause-reset{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100px;
+}
+
+.btnpr{
+    background-color: black;
+    color: #eae9e5;
+    outline: none;
+    border: none;
+    font-size: 14px;
+    width: 80px;
+    height: 30px;
+    border-radius: 5px;
+}
+
+
+.button:hover,.btnpr:hover{
+    background-color: rgb(63, 62, 62);
+}
+
+.button:active,.btnpr:active{
+    background-color: rgb(0, 0, 0);
+}
+
+#animate-disp{
+    position: absolute;
+    /*stroke-dasharray: ;*/
+}
+
+#animate-obj{
+    /* fill:  none !important; */
+    stroke: #00a0b0;
+    stroke-width: 10px;
+    stroke-dasharray: 0;
+    stroke-dasharray: 600;
+    stroke-dashoffset: var(--time);
+}
+
+#animate-obj-break{
+    stroke: #c85e3d;
+    stroke-width: 10px;
+    stroke-dasharray: 0;
+    stroke-dasharray: 600;
+    stroke-dashoffset: var(--time);
+}
