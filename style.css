@@ -4,7 +4,7 @@
 }
 
 :root{
-    --time: 600;
+    --time: 0;
 }
 
 body{
@@ -142,7 +142,6 @@ p{
     /* fill:  none !important; */
     stroke: #00a0b0;
     stroke-width: 10px;
-    stroke-dasharray: 0;
     stroke-dasharray: 600;
     stroke-dashoffset: var(--time);
 }

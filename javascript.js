@@ -14,7 +14,7 @@ let sessionTime = 15;
 let breakTime = 1;
 let sessionCount = 1;
 let r = document.querySelector(":root");
-let borderOffset = 600; 
+let borderOffset = 0; 
 let border = document.getElementById("animate-obj");
 let min = 0;
 let sec = 0;
@@ -44,9 +44,9 @@ function counterFun(){
     console.log(counter);
     
     if(sessionTimer){
-        borderOffset =600 - parseInt(counter/(sessionTime*60)*600);
+        borderOffset =  parseInt(counter/(sessionTime*60)*600);
     }else{
-        borderOffset =600 - parseInt(counter/(breakTime*60)*600);
+        borderOffset =  parseInt(counter/(breakTime*60)*600);
     }
 
     r.style.setProperty('--time',borderOffset);
@@ -65,16 +65,34 @@ function counterFun(){
     sec = counter % 60;
     min = parseInt(counter / 60);
     
-    if(sec <= 9){
-        secString='0'+ sec;
-    }else{ 
-        secString = sec.toString();
+    let secToDisp =  59 -sec;
+    let minToDisp = sessionTime - min -1 ;
+
+    if(!sessionTimer){
+        minToDisp = breakTime - min -1;
     }
 
-    if(min < 9){
-        minString = '0' + min;
+    if(sessionTime == 0 && sessionTimer){
+        minToDisp = 0;
+        secToDisp =0;
+    }
+
+    if(!sessionTimer && breakTime == 0){
+        minToDisp = 0;
+        secToDisp =0;
+    }
+
+    if(secToDisp <= 9){
+        secString='0'+ secToDisp;
+    }else{ 
+        secString = secToDisp.toString();
+    }
+
+
+    if(minToDisp < 9){
+        minString = '0' + minToDisp;
     }else{
-        minString = toString(min);
+        minString = ''+minToDisp;
     }    
     
     display.innerHTML = `${minString}:${secString}`;
@@ -95,7 +113,7 @@ function resetFun(){
     minusBreak.removeAttribute("disabled");
     console.log(plusSession);
     borderOffset = 600;
-    r.style.setProperty("--timer",600);
+    r.style.setProperty("--time",600);
     display.innerHTML = "00:00";
 
     startPauseBtn.innerHTML = "Start";
@@ -108,6 +126,11 @@ function resetFun(){
     sessionDisplay.innerHTML = "15 min";
     breakDisplay.innerHTML = '1 min';
     breakTime = 1;
+    
+    sessionCount = 0;
+    sessionFunc();
+
+
 }
 
 function plusSessionPress(){
@@ -115,7 +138,7 @@ function plusSessionPress(){
     sessionDisplay.innerHTML = `${sessionTime} min`
 }
 function minusSessionPress(){
-    if(sessionTime == 1){
+    if(sessionTime == 0){
         return ;
     }
     sessionTime--;
@@ -126,7 +149,7 @@ function plusBreakPress(){
     breakDisplay.innerHTML = `${breakTime} min`;
 }
 function minusBreakPress(){
-    if(breakTime == 1){
+    if(breakTime == 0){
         return ;
     }
     breakTime--;
@@ -137,7 +160,7 @@ function minusBreakPress(){
 function breakTimer(){
     border.setAttribute("id","animate-obj-break");
     sessionTimer = false;
-    borderOffset = 600;
+    borderOffset = 0;
     display.setAttribute("class","breakMode");
     title.innerHTML = "Break!";
     console.log("Break Time");
@@ -147,7 +170,7 @@ function breakTimer(){
 }
 
 function sessionFunc(){
-    borderOffset = 600;
+    borderOffset = 0;
     border.setAttribute("id","animate-obj");
     sessionCount++;
     title.innerHTML = `Session ${sessionCount}`
