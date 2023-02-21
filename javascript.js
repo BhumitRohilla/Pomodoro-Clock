@@ -112,8 +112,8 @@ function resetFun(){
     plusBreak.removeAttribute("disabled");
     minusBreak.removeAttribute("disabled");
     console.log(plusSession);
-    borderOffset = 600;
-    r.style.setProperty("--time",600);
+    borderOffset = 0;
+    r.style.setProperty("--time",0);
     display.innerHTML = "00:00";
 
     startPauseBtn.innerHTML = "Start";
