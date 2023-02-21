@@ -20,6 +20,7 @@ let min = 0;
 let sec = 0;
 
 let intervalId;
+let counterIntervalId;
 let sessionTimer = true;
 // console.log(display,title,startPauseBtn,reset,plusSession,minusSession,plusBreak,minusBreak);
 
@@ -29,7 +30,8 @@ reset.addEventListener("click",resetFun);
 console.log(plusBreak);
 
 function startCounter(){
-    intervalId = setInterval(counterFun,1000);
+    counterIntervalId = setInterval(count,1000);
+    intervalId = setInterval(counterFun,10);
     startPauseBtn.innerHTML = "Pause";
     startPauseBtn.removeEventListener("click",startCounter);
     startPauseBtn.addEventListener("click",pauseCounter);
@@ -40,7 +42,6 @@ function startCounter(){
 }
 
 function counterFun(){
-    counter++;
     console.log(counter);
     
     if(sessionTimer){
@@ -51,26 +52,37 @@ function counterFun(){
 
     r.style.setProperty('--time',borderOffset);
 
-    if(sessionTimer && sessionTime == parseInt(counter/60)){
+    if(sessionTimer && sessionTime == parseInt((counter-1)/60)){
         breakTimer();
     }
 
-    if( !sessionTimer && breakTime == parseInt(counter/60)){
+    if( !sessionTimer && breakTime == parseInt((counter-1)/60)){
         sessionFunc();
     }
 
+    let secToDisp;
+    let minToDisp;
+
+    if(counter  == 0){
+        if(sessionTimer){
+            secToDisp = 0;
+            minToDisp = sessionTime;
+        }else{
+            secToDisp = 0;
+            minToDisp = breakTime;
+        }
+    }else{
+        sec = (counter-1) % 60;
+        min = parseInt((counter-1) / 60);
+        secToDisp =  59 -sec;
+        minToDisp = sessionTime - min -1  ;
+    }
+    disp(minToDisp,secToDisp);
+}
+
+function disp(minToDisp,secToDisp){
     let secString;
     let minString;
-    
-    sec = counter % 60;
-    min = parseInt(counter / 60);
-    
-    let secToDisp =  59 -sec;
-    let minToDisp = sessionTime - min -1 ;
-
-    if(!sessionTimer){
-        minToDisp = breakTime - min -1;
-    }
 
     if(sessionTime == 0 && sessionTimer){
         minToDisp = 0;
@@ -96,11 +108,15 @@ function counterFun(){
     }    
     
     display.innerHTML = `${minString}:${secString}`;
+}
 
+function count(){
+    counter++;
 }
 
 function pauseCounter(){
     clearInterval(intervalId);
+    clearInterval(counterIntervalId);
     startPauseBtn.innerHTML = "Start"
     startPauseBtn.removeEventListener("click",pauseCounter);
     startPauseBtn.addEventListener("click",startCounter);
@@ -121,6 +137,7 @@ function resetFun(){
     startPauseBtn.addEventListener("click",startCounter);
 
     counter = 0;
+    clearInterval(counterIntervalId);
     clearInterval(intervalId);
     sessionTime = 15;
     sessionDisplay.innerHTML = "15 min";
