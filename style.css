@@ -35,7 +35,6 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    
 }
 
 .sessionMode{
@@ -152,4 +151,9 @@ p{
     stroke-dasharray: 0;
     stroke-dasharray: 600;
     stroke-dashoffset: var(--time);
+}
+
+
+#display{
+    font-weight: 600;
 }

@@ -74,8 +74,13 @@ function counterFun(){
     }else{
         sec = (counter-1) % 60;
         min = parseInt((counter-1) / 60);
-        secToDisp =  59 -sec;
-        minToDisp = sessionTime - min -1  ;
+        if(sessionTimer){
+            secToDisp =  59 -sec;
+            minToDisp = sessionTime - min -1  ;
+        }else{
+            secToDisp =  59 -sec;
+            minToDisp = breakTime - min -1  ;
+        }
     }
     disp(minToDisp,secToDisp);
 }
@@ -155,7 +160,7 @@ function plusSessionPress(){
     sessionDisplay.innerHTML = `${sessionTime} min`
 }
 function minusSessionPress(){
-    if(sessionTime == 0){
+    if(sessionTime == 1){
         return ;
     }
     sessionTime--;
